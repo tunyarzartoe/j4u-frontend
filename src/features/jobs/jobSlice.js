@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { base_url } from "../config/baseUrl";
+import { jobPosts, companies, locations, categories, jobTypes } from "../../dummyData";
 
 const initialState = {
   jobPosts: [],
@@ -8,77 +7,73 @@ const initialState = {
   error: null,
 };
 
-const GET_URL = `${base_url}/jobPost/all`;
-const POSTS_URL = `${base_url}/jobPost/create`;
-const PUT_URL = `${base_url}/jobPost/update`;
-const DELETE_URL = `${base_url}/jobPost/delete`;
+const normalizeJobPost = (data) => {
+  const company = companies.find((item) => item.id === data.companyId) || companies[0];
+  const location = locations.find((item) => item.id === data.locationId) || locations[0];
+  const jobType = jobTypes.find((item) => item.id === data.jobTypeId) || jobTypes[0];
+  const category = categories.find((item) => item.id === data.categoryId) || categories[0];
+
+  return {
+    ...data.jobPost,
+    id: data.jobPost.id || Math.max(0, ...jobPosts.map((item) => item.id)) + 1,
+    company,
+    location,
+    jobTypes: jobType,
+    category,
+    publishedOn: data.jobPost.publishedOn || new Date().toISOString().split("T")[0],
+  };
+};
 
 export const getAllJobPosts = createAsyncThunk(
   "jobPosts/getAlljobPosts",
   async () => {
-    const response = await axios.get(GET_URL);
-
-    return [...response.data];
+    return [...jobPosts];
   }
 );
 
 export const addNewJobPost = createAsyncThunk(
   "jobPosts/addNewJobPost",
   async (data) => {
-    console.log("%%%%%%%%%" + data.jobPost);
-    console.log("%%%%%%%%%" + data.companyId);
-    console.log("%%%%%%%%%" + data.jobTypeId);
-    const response = await axios.post(
-      `${POSTS_URL}/${data.companyId}/${data.jobTypeId}/${data.categoryId}/${data.locationId}`,
-      data.jobPost
-    );
-    return response.data;
+    const newJobPost = normalizeJobPost(data);
+    jobPosts.push(newJobPost);
+    return newJobPost;
   }
 );
 
 export const updateJobPost = createAsyncThunk(
   "jobPosts/updateJobPost",
   async (data) => {
-    console.log("%%%%%%%%%" + data.jobPost);
-    console.log("%%%%%%%%%" + data.companyId);
-    console.log("%%%%%%%%%" + data.jobTypeId);
-    console.log("%%%%%%%%%" + data.categoryId);
-    const response = await axios.put(
-      `${PUT_URL}/${data.companyId}/${data.jobTypeId}/${data.categoryId}/${data.locationId}`,
-      data.jobPost
-    );
+    const existingIndex = jobPosts.findIndex((item) => item.id === data.jobPost.id);
+    const updatedJobPost = normalizeJobPost(data);
 
-    return response.data;
+    if (existingIndex === -1) {
+      jobPosts.push(updatedJobPost);
+    } else {
+      jobPosts[existingIndex] = updatedJobPost;
+    }
+
+    return updatedJobPost;
   }
 );
 
 export const deleteJobPost = createAsyncThunk(
   "jobPosts/deleteJobPost",
   async (jobPost) => {
-    
-    await axios.delete(`${DELETE_URL}/${jobPost.id}`);
-
-    const response = await axios.get(GET_URL);
-    return response.data;
+    const index = jobPosts.findIndex((item) => item.id === jobPost.id);
+    if (index !== -1) {
+      jobPosts.splice(index, 1);
+    }
+    return [...jobPosts];
   }
 );
 
 const jobSlice = createSlice({
   name: "jobPosts",
   initialState,
-  reducers: {
-    
-// selectJobByFilter :(state,action )=> {
-//   const { title, jobTypes,location } = action.payload;
-// state.jobPosts.jobPosts.filter((jobPost) => title!=null? 
-// (jobPost.jobTypes.type === jobTypes && jobPost.location.name === location):
-// (jobPost.jobTypes.type === jobTypes && jobPost.location.name === location && jobPost.title === title )
-// )
-// },
-},
+  reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(getAllJobPosts.pending, (state, action) => {
+      .addCase(getAllJobPosts.pending, (state) => {
         state.status = "loading";
       })
       .addCase(getAllJobPosts.fulfilled, (state, action) => {
@@ -92,25 +87,20 @@ const jobSlice = createSlice({
       .addCase(addNewJobPost.fulfilled, (state, action) => {
         state.jobPosts.push(action.payload);
       })
-
       .addCase(updateJobPost.fulfilled, (state, action) => {
         if (!action.payload?.id) {
-          console.log("Could not complete update!");
-          console.log(action.payload);
           return;
         }
 
-        const jobPosts = state.jobPosts.filter(
+        const filtered = state.jobPosts.filter(
           (jobPost) => jobPost.id !== action.payload.id
         );
-        state.jobPosts = [action.payload, ...jobPosts];
+        state.jobPosts = [action.payload, ...filtered];
       })
-
       .addCase(deleteJobPost.fulfilled, (state, action) => {
-     
         state.jobPosts = action.payload;
-      })
-    }
+      });
+  },
 });
 
 export const getJobPostStatus = (state) => state.jobPosts.status;
@@ -119,14 +109,18 @@ export const selectJobPostById = (state, jobPostId) =>
   state.jobPosts.jobPosts.find((jobPost) => jobPost.id === jobPostId);
 export const selectAllJobPosts = (state) => state.jobPosts.jobPosts;
 
-export const selectJobByFilter = ((state,data )=> 
-state.jobPosts.jobPosts.filter((jobPost) => data.title!=null? 
-(jobPost.jobTypes.type === data.jobTypes && jobPost.location.name === data.location):
-(jobPost.jobTypes.type === data.jobTypes && jobPost.location.name === data.location && jobPost.title === data.title )
-))
+export const selectJobByFilter = (state, data) =>
+  state.jobPosts.jobPosts.filter((jobPost) =>
+    data.title != null
+      ? jobPost.jobTypes.type === data.jobTypes &&
+        jobPost.location.name === data.location
+      : jobPost.jobTypes.type === data.jobTypes &&
+        jobPost.location.name === data.location &&
+        jobPost.title === data.title
+  );
 
-
-export const selectJobByCategory =((state,categoryId)=> state.jobPosts.jobPosts.filter((jobPost)=> jobPost.category.id === categoryId))
+export const selectJobByCategory = (state, categoryId) =>
+  state.jobPosts.jobPosts.filter((jobPost) => jobPost.category.id === categoryId);
 
 export const selectJobPostByCompanyId = (state, companyId) =>
   state.jobPosts.jobPosts.filter((jobPost) => jobPost.company.id === companyId);

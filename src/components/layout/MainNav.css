@@ -3,41 +3,40 @@
   padding: 0;
   box-sizing: border-box;
 }
-.navbar{
-  padding:  8px !important;
-  
+.navbar {
+  padding: 1rem 1.5rem !important;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 14px 45px rgba(28, 92, 255, 0.08);
 }
-.userImg{
-  color: dark !important;
+.userImg {
+  color: #33475b !important;
 }
 .navbar-brand {
-  font-size: 1.4rem;
-  color: #000 !important;
-  font-weight: 400;
+  font-size: 1.45rem;
+  color: #1c5cff !important;
+  font-weight: 700;
   letter-spacing: 0.5px;
 }
 .navUl li {
-  padding: 0 0.5rem !important;
+  padding: 0 0.75rem !important;
 }
-
-
 
 .linkItems {
   font-size: 1rem;
-  color: #000 !important;
-  font-weight: 400;
+  color: #374770 !important;
+  font-weight: 500;
   position: relative;
 }
 
 .linkItems:after {
   content: "";
   opacity: 0;
-  transition: all 0.2s;
+  transition: all 0.25s ease;
   height: 2px;
   width: 100%;
-  background-color: #119bff;
+  background-color: #1c5cff;
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   left: 0;
 }
 

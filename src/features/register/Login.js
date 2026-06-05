@@ -53,13 +53,11 @@ const Login = () => {
         if (success) {
           setEmail("");
           setPassword("");
-          if(roleType == "ROLE_ADMIN"){
+          if (Array.isArray(roleType) ? roleType.includes("ROLE_ADMIN") : roleType === "ROLE_ADMIN") {
             navigate("/admin/", { replace: true });
-
-          }else{
+          } else {
             navigate(from, { replace: true });
           }
-          
         } 
         // else {
         //   setMessage(

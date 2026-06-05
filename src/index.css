@@ -4,95 +4,110 @@
   box-sizing: border-box;
 }
 
+:root {
+  --background: #f4f7ff;
+  --surface: #ffffff;
+  --surface-soft: #f8fbff;
+  --primary: #1c5cff;
+  --primary-soft: #e7efff;
+  --text: #1d2635;
+  --text-muted: #677589;
+  --border: #dbe2ef;
+  --shadow: 0 18px 50px rgba(38, 78, 255, 0.08);
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: radial-gradient(circle at top left, rgba(28, 92, 255, 0.12), transparent 35%),
+    linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
+  color: var(--text);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
 .backdrop {
   position: fixed;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.75);
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  left: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  inset: 0;
 }
 
-font-family: 'Roboto', sans-serif;
-font-family: 'Source Serif Pro', serif;
-:root {
-  --color-131921: #131921;
-  --color-3b4149: #3b4149;
-  --color-febd69: #febd69;
-  --color-232f3e: #232f3e;
-  --color-bf4800: #bf4800;
-  --color-f5f5f7: #f5f5f7;
-  --color-ededed: #ededed;
-  --color-777777: #777777;
-  --color-1c1c1b: #1c1c1b;
+button,
+.button,
+.btn,
+.auth-card {
+  transition: all 0.2s ease;
 }
 
-.button {
-  color: #2d2d2d;
-  font-size: 13px;
-  padding: 12px 31px;
-  border-radius: 22px;
-  
-  
-}
-.button:hover {
-   
-    background-color: #102770;
-    color: #ffeba7;
-    box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
-  
+button:hover,
+.button:hover,
+.btn:hover {
+  transform: translateY(-1px);
 }
 
-body{
-  background-color:#fff;
+.button,
+.btn {
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
+button:disabled,
+.button:disabled,
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 
 .modal {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  background-color: black;
-  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  background-color: var(--surface);
+  padding: 1.5rem;
   text-align: center;
   width: 30rem;
   z-index: 10;
   position: fixed;
-  top: 20vh;
-  left: calc(50% - 15rem);
-}
-.btn--alt {
-  background-color: #fff;
-  border-radius: 25px;
-  color: #fff;
+  inset: 20vh calc(50% - 15rem) auto auto;
 }
 
-.btn--alt:hover {
-  background-color: #f8dae9;
-  color: #2d2d2d;
+.btn--alt {
+  background-color: var(--surface-soft);
+  color: var(--text);
 }
 
 .card1 {
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  padding: 1rem;
+  background-color: var(--surface);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
   width: 20rem;
 }
 
-
-/* For MainNav */
 .postCredit {
   font-size: 1rem;
 }
 
-.postCredit a, 
+.postCredit a,
 .postCredit a:visited {
   margin-right: 0.5rem;
-  color: black;
+  color: var(--text);
 }
 
-.postCredit a:hover, 
+.postCredit a:hover,
 .postCredit a:focus {
-  color: hsla(0, 0%, 0%, 0.75);
+  color: #4556d9;
 }
