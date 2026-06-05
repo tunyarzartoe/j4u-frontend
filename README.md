@@ -68,3 +68,22 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Deploying to Vercel
+
+1. Push your local repository to GitHub.
+2. Go to [vercel.com](https://vercel.com) and sign in with GitHub.
+3. Create a new Vercel project and connect it to this repository.
+4. Use the default `npm run build` settings for Create React App.
+5. Deploy — Vercel will build and host the site automatically.
+
+## GitHub Upload
+
+Since this repository already has a remote configured at `https://github.com/tunyarzartoe/j4u-frontend.git`, the latest static data and UI changes have been committed and pushed.
+
+If you want to create a new repository instead, use either GitHub web or the `gh` CLI to create a new repo, then update the remote:
+
+```bash
+git remote set-url origin https://github.com/your-username/new-repo-name.git
+git push -u origin master
+```
