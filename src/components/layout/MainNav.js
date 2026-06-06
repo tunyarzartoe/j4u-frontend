@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./MainNav.css";
+import logo from "../../images/j4u-logo.svg";
 import { MDBIcon } from "mdb-react-ui-kit";
 import { getToken, logout } from "../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -93,9 +94,16 @@ const MainNav = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top ">
       <div className="container ">
-        <Link className="navbar-brand" style={{color:'dark'}} to="/">
-          {/* J<span className="logo">4</span>U */}
-          J<span className="logo">4</span>U
+        {/* <Link className="navbar-brand" to="/">
+        hello
+          <img src={logo} alt="J4U" className="brand-logo" />
+        </Link> */}
+        <Link
+          className="navbar-brand d-flex align-items-center gap-10 text-dark"
+          // aria-current="page"
+          to="/"
+        >
+          <img src={logo} alt="J4U" className="brand-logo" />
         </Link>
         <button
           class="navbar-toggler"
@@ -138,33 +146,33 @@ const MainNav = () => {
             </li>
 
             <li className="nav-item">
-            <div class="dropdown">
-          <div
-            class=" dropdown-toggle"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="fas fa-user "></i>
-          </div>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li>
-              <Link class="dropdown-item" href="#">
-                {loginUser.fullname}
-              </Link>
-            </li>
-            <li>
-              <Link class="dropdown-item" to="/profile">
-              My Profile
-              </Link>
-            </li>
-            <li>
-              <Link class="dropdown-item" href="#">
-                Something else here
-              </Link>
-            </li>
-          </ul>
-        </div>
+              <div class="dropdown">
+                <div
+                  class=" dropdown-toggle"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-user "></i>
+                </div>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <Link class="dropdown-item" href="#">
+                      {loginUser.fullname}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" to="/profile">
+                      My Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" href="#">
+                      Something else here
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </li>
 
             <li className="nav-item ">

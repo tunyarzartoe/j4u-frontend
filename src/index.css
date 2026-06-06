@@ -111,3 +111,8 @@ button:disabled,
 .postCredit a:focus {
   color: #4556d9;
 }
+
+.logo {
+  color: var(--primary);
+  font-weight: 800;
+}

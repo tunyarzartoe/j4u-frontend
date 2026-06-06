@@ -17,6 +17,12 @@
   font-weight: 700;
   letter-spacing: 0.5px;
 }
+
+.brand-logo {
+  height: 36px;
+  width: auto;
+  display: block;
+}
 .navUl li {
   padding: 0 0.75rem !important;
 }

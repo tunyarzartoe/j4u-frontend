@@ -20,7 +20,7 @@ const CompanyLogo = () => {
   },[])
 
   return (
-    <Container class1="marque-wrapper home-wrapper-2 py-5 my-5" data-aos="fade-up">
+    <Container className="marque-wrapper home-wrapper-2 py-5 my-5" data-aos="fade-up">
         <div className="row">
           <div className="col-12">
             <div className="marquee-inner-wrapper card-wrapper">
