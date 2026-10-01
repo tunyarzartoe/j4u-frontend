@@ -1,85 +1,52 @@
-import React from 'react'
-import './JobCategory.css'
-import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
-import Aos from 'aos'
-import Meta from '../../components/pages/Meta'
+import React, { useEffect } from "react";
+import "./JobCategory.css";
+import { Link } from "react-router-dom";
+import Aos from "aos";
+import Meta from "../../components/pages/Meta";
 
+const CATEGORIES_DATA = [
+  { icon: "fa-laptop-code", title: "Software Engineering", count: 48 },
+  { icon: "fa-paint-brush", title: "Design & Creative", count: 26 },
+  { icon: "fa-bullhorn", title: "Marketing & Growth", count: 34 },
+  { icon: "fa-headset", title: "Customer Support", count: 19 },
+  { icon: "fa-user-tie", title: "Human Resources", count: 15 },
+  { icon: "fa-chart-line", title: "Finance & Accounting", count: 22 },
+  { icon: "fa-tasks", title: "Project Management", count: 18 },
+  { icon: "fa-hands-helping", title: "Sales & Partnerships", count: 29 },
+];
 
 const JobCategory = () => {
-    useEffect(()=>{
-        Aos.init({duration: 500});
-      },[])
-  return (
-   
-   <>
-   <Meta title={"JobCategory"} />
-      
-   <div class="container py-5">
-            <div class="container my-2" >
-                <h1 class="text-center mb-5 " data-wow-delay="0.1s">Explore By Category</h1>
-                <div class="row g-4" data-aos="fade-up" >
-                    <div class="col-lg-3 col-sm-6 "  data-wow-delay="0.1s">
-                        <Link class="cat-item rounded p-4" to="/jobList">
-                            <i class="fa fa-3x fa-mail-bulk text-primary mb-4"></i>
-                            <h6 class="mb-3">Marketing</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </Link>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <Link class="cat-item rounded p-4" to="/jobList">
-                            <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                            <h6 class="mb-3">Customer Service</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </Link>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <Link class="cat-item rounded p-4" to="/jobList">
-                            <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                            <h6 class="mb-3">Human Resource</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </Link>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <Link class="cat-item rounded p-4" to="/jobList">
-                            <i class="fa fa-3x fa-tasks text-primary mb-4"></i>
-                            <h6 class="mb-3">Project Management</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </Link>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <Link class="cat-item rounded p-4" to="/jobList">
-                            <i class="fa fa-3x fa-chart-line text-primary mb-4"></i>
-                            <h6 class="mb-3">Business Development</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </Link>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <Link class="cat-item rounded p-4" to="/jobList">
-                            <i class="fa fa-3x fa-hands-helping text-primary mb-4"></i>
-                            <h6 class="mb-3">Sales & Communication</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </Link>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <Link class="cat-item rounded p-4" to="/jobList">
-                            <i class="fa fa-3x fa-book-reader text-primary mb-4"></i>
-                            <h6 class="mb-3">Teaching & Education</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </Link>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <Link class="cat-item rounded p-4" to="/jobList">
-                            <i class="fa fa-3x fa-drafting-compass text-primary mb-4"></i>
-                            <h6 class="mb-3">Design & Creative</h6>
-                            <p class="mb-0">123 Vacancy</p>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
-   </>
-  )
-}
+  useEffect(() => {
+    Aos.init({ duration: 500, once: true });
+  }, []);
 
-export default JobCategory
+  return (
+    <>
+      <Meta title={"Browse by Category - J4U"} />
+
+      <section className="container py-5 my-2">
+        <div className="text-center section-title" data-aos="fade-up">
+          <span className="stat-badge mb-2">Job Sectors</span>
+          <h2>Explore By Category</h2>
+          <p>Find open roles tailored to your specialization and industry expertise</p>
+        </div>
+
+        <div className="row g-4" data-aos="fade-up">
+          {CATEGORIES_DATA.map((cat, index) => (
+            <div key={index} className="col-lg-3 col-md-6 col-sm-6">
+              <Link className="cat-card" to="/jobPost">
+                <div className="cat-icon-wrapper">
+                  <i className={`fa ${cat.icon}`}></i>
+                </div>
+                <h6 className="cat-title">{cat.title}</h6>
+                <span className="cat-vacancy">{cat.count} Open Vacancies</span>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default JobCategory;

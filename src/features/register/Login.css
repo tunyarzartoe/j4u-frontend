@@ -1,181 +1,184 @@
-.bg-image{
-    background-image: url('https://tycheventures.com/wp-content/uploads/2020/09/were-hiring-scaled.jpg');
- 
+.auth-page {
+  display: flex;
+  min-height: calc(100vh - 80px);
+  background: #ffffff;
+}
+
+.auth-page__form-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+}
+
+.auth-page__form-wrapper {
+  width: 100%;
+  max-width: 440px;
+}
+
+.auth-page__brand h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  margin-bottom: 0.35rem;
+}
+
+.auth-page__subtitle {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.auth-page__error {
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #ef4444;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.auth-input-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input-wrapper i {
+  position: absolute;
+  left: 1rem;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.auth-input-wrapper input {
+  width: 100%;
+  padding: 0.85rem 1rem 0.85rem 2.6rem;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  font-size: 0.95rem;
+  color: #1e293b;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.auth-input-wrapper input:focus {
+  border-color: var(--primary, #1c5cff);
+  box-shadow: 0 0 0 3px rgba(28, 92, 255, 0.12);
+}
+
+.auth-page__options {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-page__forgot {
+  font-size: 0.875rem;
+  color: var(--primary, #1c5cff);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-page__forgot:hover {
+  text-decoration: underline;
+}
+
+.auth-page__submit-btn {
+  background: var(--primary, #1c5cff);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.95rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(28, 92, 255, 0.25);
+  margin-top: 0.5rem;
+}
+
+.auth-page__submit-btn:hover:not(:disabled) {
+  background: var(--primary-hover, #0f48dc);
+  transform: translateY(-1px);
+}
+
+.auth-page__submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-page__switch {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.auth-page__switch a {
+  color: var(--primary, #1c5cff);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-page__switch a:hover {
+  text-decoration: underline;
+}
+
+.auth-page__image-side {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(13, 27, 62, 0.85) 0%, rgba(28, 92, 255, 0.75) 100%),
+    url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  color: #ffffff;
+  position: relative;
+}
+
+.auth-page__image-overlay {
+  max-width: 480px;
+}
+
+.auth-page__image-overlay h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.auth-page__image-overlay p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+@media (max-width: 991px) {
+  .auth-page__image-side {
+    display: none;
   }
-  
-  
-  /* body {
-    font-family: "Roboto", sans-serif;
-    background-color: #fff; } */
-  
-    /* p {
-      color: #b3b3b3;
-      font-weight: 300; } */
-    
-    /* h1, h2, h3, h4, h5, h6,
-    .h1, .h2, .h3, .h4, .h5, .h6 {
-      font-family: "Roboto", sans-serif; } */
-    
-  
-      /* a:hover {
-        text-decoration: none !important; } */
-    
-    .content {
-      padding: 7rem 0; }
-    
-    h2 {
-      font-size: 0px; }
-    
-    .half, .half .container > .row {
-      height: 800px !important;
-      min-height: 800px; }
-
-      .logo {
-        font-size: 2.5rem;
-        color: #119BFF;
-    }
-    
-    @media (max-width: 991.98px) {
-      .half .bg {
-        height: 200px; } }
-    
-    .half .contents {
-      background: #f6f7fc; }
-    
-    .half .contents, .half .bg {
-      width: 50%; }
-      @media (max-width: 1199.98px) {
-        .half .contents, .half .bg {
-          width: 100%; } }
-      .half .contents .form-control, .half .bg .form-control {
-        border: none;
-        -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
-        height: 54px;
-        background: #fff; }
-        .half .contents .form-control:active, .half .contents .form-control:focus, .half .bg .form-control:active, .half .bg .form-control:focus {
-          outline: none;
-          -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1); }
-    
-    .half .bg {
-      background-size: cover;
-      background-position: center; }
-    
-  
-    
-    .half .btn {
-      height: 54px;
-      padding-left: 30px;
-      padding-right: 30px; }
-    
-    .half .forgot-pass {
-      position: relative;
-      top: 2px;
-      font-size: 14px; }
-    
-    .control {
-      display: block;
-      position: relative;
-      padding-left: 20px;
-      margin-bottom: 15px;
-      cursor: pointer;
-      font-size: 14px; }
-      .control .caption {
-        position: relative;
-        top: .2rem;
-        color: #888; }
-    
-    .control input {
-      position: absolute;
-      z-index: -1;
-      opacity: 0; }
-    
-    .control__indicator {
-      position: absolute;
-      top: 2px;
-      left: 0;
-      height: 20px;
-      width: 20px;
-      background: #e6e6e6;
-      border-radius: 4px; }
-    
-    .control--radio .control__indicator {
-      border-radius: 50%; }
-    
-    .control:hover input ~ .control__indicator,
-    .control input:focus ~ .control__indicator {
-      background: #ccc; }
-    
-    .control input:checked ~ .control__indicator {
-      background: #fb771a; }
-    
-    .control:hover input:not([disabled]):checked ~ .control__indicator,
-    .control input:checked:focus ~ .control__indicator {
-      background: #fb8633; }
-    
-    .control input:disabled ~ .control__indicator {
-      background: #e6e6e6;
-      opacity: 0.9;
-      pointer-events: none; }
-    
-    .control__indicator:after {
-      font-family: 'icomoon';
-      content: '\e5ca';
-      position: absolute;
-      display: none;
-      font-size: 16px;
-      -webkit-transition: .3s all ease;
-      -o-transition: .3s all ease;
-      transition: .3s all ease; }
-    
-    .control input:checked ~ .control__indicator:after {
-      display: block;
-      color: #fff; }
-    
-    .control--checkbox .control__indicator:after {
-      top: 50%;
-      left: 50%;
-      margin-top: -1px;
-      -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%); }
-    
-    .control--checkbox input:disabled ~ .control__indicator:after {
-      border-color: #7b7b7b; }
-    
-    .control--checkbox input:disabled:checked ~ .control__indicator {
-      background-color: #7e0cf5;
-      opacity: .2; }
-    .input{
-      
-      justify-content: center;
-      align-items: center;
-    }
-    /* .button{
-      border-radius: 20px;
-      border-color: dark;
-    } */
-    .button1 {
-        color: #fff;
-        font-size: 13px;
-        padding: 12px 31px;
-        border-radius: 22px;
-        background-color: #FEA255;
-      }
-      .button1:hover {
-         
-          background-color: #102770;
-          color: #ffeba7;
-          box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
-        
-      }
-
-      .register{
-        box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
-        border-radius: 10px;
-        
-      }
-  
-      
+}

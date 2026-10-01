@@ -110,14 +110,13 @@ export const selectJobPostById = (state, jobPostId) =>
 export const selectAllJobPosts = (state) => state.jobPosts.jobPosts;
 
 export const selectJobByFilter = (state, data) =>
-  state.jobPosts.jobPosts.filter((jobPost) =>
-    data.title != null
-      ? jobPost.jobTypes.type === data.jobTypes &&
-        jobPost.location.name === data.location
-      : jobPost.jobTypes.type === data.jobTypes &&
-        jobPost.location.name === data.location &&
-        jobPost.title === data.title
-  );
+  state.jobPosts.jobPosts.filter((jobPost) => {
+    if (!data) return true;
+    const matchTitle = !data.title || (jobPost.title && jobPost.title.toLowerCase().includes(data.title.toLowerCase().trim()));
+    const matchJobType = !data.jobTypes || (jobPost.jobTypes && jobPost.jobTypes.type === data.jobTypes);
+    const matchLocation = !data.location || (jobPost.location && jobPost.location.name === data.location);
+    return matchTitle && matchJobType && matchLocation;
+  });
 
 export const selectJobByCategory = (state, categoryId) =>
   state.jobPosts.jobPosts.filter((jobPost) => jobPost.category.id === categoryId);

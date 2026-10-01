@@ -1,73 +1,117 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Footer.css";
 
-import { Link } from 'react-router-dom';
-import './Footer.css'
 const Footer = () => {
-  return (
-    <>
-            <div class="container bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-4">Company</h5>
-                        <Link class="btn-link text-white-50" href="">About Us</Link>
-                        <Link class="btn-link text-white-50" href="">Contact Us</Link>
-                        <Link class="btn-link text-white-50" to="/jobs">Job Lists</Link>
-                        <Link class="btn-link text-white-50" href="">Privacy Policy</Link>
-                        <Link class="btn-link text-white-50" href="">Terms & Condition</Link>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-4">Quick Links</h5>
-                        <Link class="btn-link text-white-50" href="">About Us</Link>
-                        <Link class="btn-link text-white-50" href="">Contact Us</Link>
-                        <Link class="btn-link text-white-50" href="">Our Services</Link>
-                        <Link class="btn-link text-white-50" href="">Privacy Policy</Link>
-                        <Link class="btn-link text-white-50" href="">Terms & Condition</Link>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-4">Contact</h5>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>HMM, Mandalay, Myanmar</p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>09878787878</p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>j4u@gmail.com</p>
-                        <div class="d-flex pt-2">
-                            <Link class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></Link>
-                            <Link class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></Link>
-                            <Link class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></Link>
-                            <Link class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></Link>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-4">Newsletter</h5>
-                        <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                        <div class="position-relative mx-auto" style={{maxWidth: "400px"}}>
-                            <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email"/>
-                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="copyright">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <Link class="border-bottom" href="https://freewebsitecode.com">J<span>4</span>U</Link>, All Right Reserved. 
-							
-							
-							Designed By <Link class="border-bottom" href="https://freewebsitecode.com">Zack</Link>
-                        </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <div class="footer-menu">
-                                <Link href="">Home</Link>
-                                <Link href="">Cookies</Link>
-                                <Link href="">Help</Link>
-                                <Link href="">FQAs</Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </>
-  )
-}
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
 
-export default Footer
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setSubscribed(true);
+      setEmail("");
+      setTimeout(() => setSubscribed(false), 3000);
+    }
+  };
+
+  return (
+    <footer className="footer-modern mt-5 pt-5">
+      <div className="container py-4">
+        <div className="row g-4">
+          <div className="col-lg-4 col-md-6">
+            <span className="footer-brand">
+              J<span className="logo">4</span>U
+            </span>
+            <p className="pe-lg-4 text-secondary">
+              Connecting talented candidates with premier companies. Discover career opportunities, compare salaries, and find your dream workplace.
+            </p>
+            <div className="d-flex gap-2 mt-3">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn">
+                <i className="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+
+          <div className="col-lg-2 col-md-6">
+            <h5 className="footer-heading">Navigation</h5>
+            <Link className="footer-link" to="/">Home</Link>
+            <Link className="footer-link" to="/jobPost">Explore Jobs</Link>
+            <Link className="footer-link" to="/company">Top Companies</Link>
+            <Link className="footer-link" to="/about">About Us</Link>
+          </div>
+
+          <div className="col-lg-3 col-md-6">
+            <h5 className="footer-heading">Contact</h5>
+            <p className="mb-2 d-flex align-items-center gap-2">
+              <i className="fa fa-map-marker-alt text-primary"></i>
+              Mandalay & Yangon, Myanmar
+            </p>
+            <p className="mb-2 d-flex align-items-center gap-2">
+              <i className="fa fa-phone-alt text-primary"></i>
+              +95 9 878 787 878
+            </p>
+            <p className="mb-2 d-flex align-items-center gap-2">
+              <i className="fa fa-envelope text-primary"></i>
+              contact@j4u-careers.com
+            </p>
+          </div>
+
+          <div className="col-lg-3 col-md-6">
+            <h5 className="footer-heading">Newsletter</h5>
+            <p className="text-secondary small">
+              Subscribe to get notified whenever fresh job opportunities open.
+            </p>
+            <form onSubmit={handleSubscribe} className="position-relative">
+              <input
+                className="footer-newsletter-input pe-5"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button
+                type="submit"
+                className="btn position-absolute top-50 end-0 translate-middle-y me-1 p-2 rounded-circle"
+                style={{ width: "36px", height: "36px", background: "var(--primary, #1c5cff)", color: "#fff" }}
+                aria-label="Subscribe"
+              >
+                <i className="fas fa-paper-plane" style={{ fontSize: "0.8rem" }}></i>
+              </button>
+            </form>
+            {subscribed && (
+              <small className="text-success mt-2 d-block">
+                <i className="fas fa-check-circle me-1"></i> Thank you for subscribing!
+              </small>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="footer-bottom">
+        <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+          <div>
+            &copy; {new Date().getFullYear()} J4U. All rights reserved.
+          </div>
+          <div className="d-flex gap-3">
+            <Link to="/about" className="text-secondary text-decoration-none">Privacy Policy</Link>
+            <Link to="/about" className="text-secondary text-decoration-none">Terms of Service</Link>
+            <Link to="/about" className="text-secondary text-decoration-none">Support</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

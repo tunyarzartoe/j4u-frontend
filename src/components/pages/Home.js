@@ -1,94 +1,126 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
-import React from "react";
-
-import { MDBRow, MDBCol } from "mdb-react-ui-kit";
-import Contact from "./Contact";
-
-import CompanyLogo from "../../logo/CompanyLogo";
+import Meta from "./Meta";
 import SearchJob from "../../features/jobs/SearchJob";
 import JobCategory from "../../features/jobs/JobCategory";
-import Meta from "./Meta";
 import JobList from "../../features/jobs/JobList";
+import CompanyLogo from "../../logo/CompanyLogo";
 import About from "./About";
+import Contact from "./Contact";
 
 function Home() {
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
+  const [jobType, setJobType] = useState("");
+  const [location, setLocation] = useState("");
+
+  const handleHeroSearch = (e) => {
+    e.preventDefault();
+    // Scroll smoothly to search section or navigate with query
+    const searchSection = document.getElementById("search-job-section");
+    if (searchSection) {
+      searchSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/jobPost");
+    }
+  };
+
   return (
     <>
-      <Meta title={"Home"} />
+      <Meta title={"Home - Find Your Dream Career"} />
 
-      <div className="container p-4 background-radial-gradient overflow-hidden">
-        <MDBRow>
-          <MDBCol
-            md="6"
-            className="text-center text-md-start d-flex flex-column justify-content-center"
-          >
-            <h1
-              className="my-5 display-3 fw-bold ls-tight px-3"
-              style={{ color: "hsl(218, 81%, 95%)" }}
-            >
-              The best offer <br />
-              <span style={{ color: "hsl(218, 81%, 75%)" }}>
-                for your Life Carrier!
+      <div className="container">
+        <section className="hero-section">
+          <div className="row align-items-center g-5">
+            <div className="col-lg-6">
+              <span className="stat-badge mb-3">
+                <i className="fas fa-fire text-danger"></i> Trending Career Platform
               </span>
-            </h1>
+              <h1 className="hero-heading">
+                The Best Offer For Your <span>Career Journey</span>
+              </h1>
+              <p className="hero-subtext">
+                J4U connects ambitious candidates with top employers across Myanmar and worldwide. Explore thousands of active listings and find your next milestone.
+              </p>
 
-            <p className="px-3" style={{ color: "hsl(218, 81%, 85%)" }}>
-              J4U is the intermediate platform between Job seekers and
-              Companies.
-            </p>
-          </MDBCol>
+              <div className="hero-stats">
+                <div className="hero-stat-item">
+                  <span className="hero-stat-number">1,200+</span>
+                  <span className="hero-stat-label">Verified Jobs</span>
+                </div>
+                <div className="hero-stat-item">
+                  <span className="hero-stat-number">350+</span>
+                  <span className="hero-stat-label">Companies</span>
+                </div>
+                <div className="hero-stat-item">
+                  <span className="hero-stat-number">98%</span>
+                  <span className="hero-stat-label">Hiring Rate</span>
+                </div>
+              </div>
+            </div>
 
-          <MDBCol md="6" className="position-relative">
-            <div
-              id="radius1"
-              className="position-absolute rounded-circle shadow-5-strong"
-            ></div>
-            <div
-              id="radius2"
-              className="position-absolute shadow-5-strong"
-            ></div>
+            <div className="col-lg-6">
+              <div className="hero-search-card">
+                <h3>Start Your Search</h3>
+                <form onSubmit={handleHeroSearch}>
+                  <div className="hero-input-wrapper">
+                    <i className="fas fa-search"></i>
+                    <input
+                      type="text"
+                      className="hero-input"
+                      placeholder="Job title, skill or keyword"
+                      value={keyword}
+                      onChange={(e) => setKeyword(e.target.value)}
+                    />
+                  </div>
 
-            {/* <MDBCard className='my-5 ms-5  justify-content-center bgGlass ' >
-            <MDBCardBody className='p-5 '>
-              <h3>Start Your Dream Jobs Here!</h3>
-              <MDBRow className='p-2  '>
-               
-              <input
-                    type="text"
-                    className="form-control border-0"
-                    placeholder="Your Skill or Job Title"
-                  />
-                
-                <select class="form-select my-2" aria-label="Default select example" >
-                <option selected>Category</option>
-                <option value="1">Healthy</option>
-                <option value="2">IT</option>
-                <option value="3">Bussiness</option>
-                <option value="3">Creative,Design & Medaia</option>
-                <option value="3">Engineering</option>
-              </select>
-              <select class="form-select mb-2" aria-label="Default select example" >
-                <option selected>Location</option>
-                <option value="1">Mandalay</option>
-                <option value="2">Yangon</option>
-                <option value="3">Bagan</option>
-                
-              </select>
-              </MDBRow>
-              <button className='btn btn-outline-primary  w-100 mb-4 homeSearch' size='md'>Search Job</button>
+                  <div className="hero-input-wrapper">
+                    <i className="far fa-clock"></i>
+                    <select
+                      className="hero-select"
+                      value={jobType}
+                      onChange={(e) => setJobType(e.target.value)}
+                    >
+                      <option value="">Any Job Type</option>
+                      <option value="Full time">Full time</option>
+                      <option value="Part time">Part time</option>
+                      <option value="Contract">Contract</option>
+                    </select>
+                  </div>
 
+                  <div className="hero-input-wrapper">
+                    <i className="fa fa-map-marker-alt"></i>
+                    <select
+                      className="hero-select"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    >
+                      <option value="">Any Location</option>
+                      <option value="Remote">Remote</option>
+                      <option value="Yangon">Yangon</option>
+                      <option value="Mandalay">Mandalay</option>
+                      <option value="Bagan">Bagan</option>
+                    </select>
+                  </div>
 
-
-            </MDBCardBody>
-          </MDBCard> */}
-          </MDBCol>
-        </MDBRow>
+                  <button type="submit" className="hero-search-btn">
+                    <i className="fas fa-search me-2"></i> Explore Opportunities
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      <SearchJob />
-      <JobCategory />
-      <About />
-      <JobList />
 
+      <div id="search-job-section">
+        <SearchJob initialKeyword={keyword} initialJobType={jobType} initialLocation={location} />
+      </div>
+
+      <JobCategory />
+      <JobList />
+      <About />
       <CompanyLogo />
       <Contact />
     </>

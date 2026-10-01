@@ -1,0 +1,59 @@
+.page-header-banner {
+  background: linear-gradient(135deg, #0d1b3e 0%, #17326c 50%, #1c5cff 100%);
+  color: #ffffff;
+  padding: 4rem 1rem;
+  border-radius: 0 0 28px 28px;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(13, 27, 62, 0.15);
+}
+
+.page-header-banner::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.page-header-banner__title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.page-header-banner__breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.page-header-banner__breadcrumb a {
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.2s;
+}
+
+.page-header-banner__breadcrumb a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.page-header-banner__breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.page-header-banner__breadcrumb-current {
+  color: #ffffff;
+  font-weight: 600;
+}

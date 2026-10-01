@@ -1,6 +1,29 @@
-
-.contact-header {
-    background: linear-gradient(rgba(43, 57, 64, .5), rgba(43, 57, 64, .5)),url("https://static.vecteezy.com/system/resources/previews/001/263/984/original/contact-us-concept-free-photo.jpg")  center center no-repeat;
-    background-size: cover;
+.contact-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg, 20px);
+  padding: 3rem 2.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
 }
 
+.contact-input {
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  padding: 0.85rem 1.2rem;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  outline: none;
+  width: 100%;
+}
+
+.contact-input:focus {
+  border-color: var(--primary, #1c5cff);
+  box-shadow: 0 0 0 3px rgba(28, 92, 255, 0.1);
+}
+
+.contact-info-box {
+  background: var(--primary-soft, #eef4ff);
+  border-radius: 16px;
+  padding: 1.75rem;
+  height: 100%;
+}

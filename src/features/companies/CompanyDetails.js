@@ -1,201 +1,165 @@
-
-import './CompanyDetails.css'
-import { Link, useParams } from 'react-router-dom'
-import {  selectCompanyById } from './companySlice';
-import {  useDispatch, useSelector } from 'react-redux';
-import Meta from '../../components/pages/Meta'
-
-import { useEffect } from 'react';
-import { getAllJobPosts, selectJobPostByCompanyId } from '../jobs/jobSlice';
+import React, { useEffect } from "react";
+import "./CompanyDetails.css";
+import { Link, useParams } from "react-router-dom";
+import { selectCompanyById } from "./companySlice";
+import { useDispatch, useSelector } from "react-redux";
+import Meta from "../../components/pages/Meta";
+import { getAllJobPosts, selectJobPostByCompanyId } from "../jobs/jobSlice";
+import PageHeader from "../../components/ui/PageHeader";
+import JobCard from "../../components/ui/JobCard";
+import EmptyState from "../../components/ui/EmptyState";
 
 const CompanyDetails = () => {
-
   const { companyId } = useParams();
-
-  const company = useSelector((state) => selectCompanyById(state,Number(companyId)))
-
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllJobPosts());
   }, [dispatch]);
 
-  const jobPosts = useSelector((state) => selectJobPostByCompanyId(state,Number(companyId)))
-  console.log(jobPosts)
+  const company = useSelector((state) =>
+    selectCompanyById(state, Number(companyId))
+  );
+  const jobPosts = useSelector((state) =>
+    selectJobPostByCompanyId(state, Number(companyId))
+  ) || [];
 
-
-  if (!company){
-   return (
-       <section>
-           <h2>Company Not Found!</h2>
-       </section>
-   )
+  if (!company) {
+    return (
+      <>
+        <PageHeader
+          title="Company Details"
+          breadcrumbs={[
+            { label: "Home", to: "/" },
+            { label: "Companies", to: "/company" },
+            { label: "Not Found" },
+          ]}
+        />
+        <div className="container py-5">
+          <EmptyState
+            icon="fa-building"
+            title="Company Not Found"
+            message="The organization profile you are seeking is unavailable or does not exist."
+            action={
+              <Link to="/company" className="btn-primary-custom mt-3">
+                <i className="fas fa-arrow-left me-2"></i> Browse Companies
+              </Link>
+            }
+          />
+        </div>
+      </>
+    );
   }
 
-
   return (
-    <section className='comDeatils'>
-      <Meta title={"Company Detail"} />
-      
-    <div class="container py-5 bg-dark company-header mb-2">
-        <div class="container my-5 pt-5 pb-5">
-          <h1 class="display-3 text-white mb-3 animated slideInDown">
-            Company Details
-          </h1>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb text-uppercase">
-              <li class="breadcrumb-item text-white">
-                <Link href="#">Home</Link>
-              </li>
-              <li class="breadcrumb-item text-white">
-                <Link href="#">Pages</Link>
-              </li>
-              <li class="breadcrumb-item text-white active" aria-current="page">
-                Company Details
-              </li>
-            </ol>
-          </nav>
-        </div>
-      </div>
+    <>
+      <Meta title={`${company.name} - Profile & Jobs`} />
 
-      
-      <div class="container-fluid py-5 wow jobDetails" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="row gy-5 gx-4 ">
-                    <div class="col-lg-8" key={company.id}>
-                        <div class="d-flex align-items-center mb-5">
-                            <img src={company.logo} alt="" style={{width: "80px", height: "80px"}}/>
-                            <div class="text-start ps-4">
-                                <h3 class="mb-3">{company.name}</h3>
-                                 <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{company.address}</span>
-                                
-                            </div>
-                        </div>
-                        <div class="mb-5">
-                            <h4 class="mb-3">Description</h4>
-                            <p>{company.description}</p> 
-                            <p>{company.jobPost}</p> 
-                        </div>
+      <PageHeader
+        title={company.name}
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Companies", to: "/company" },
+          { label: company.name },
+        ]}
+      />
 
-
-
-<div class="accordion" id="accordionPanelsStayOpenExample">
-  
-  
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-      <button class="accordion-button collapsed rjob" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-        Related Jobs
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-      <div class="accordion-body">
-       
-
-<>
-
-<div class="container  jobList mb-5 ">
-        <div class="container">
-          <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
-
-            <div class="tab-content "data-aos="fade-up">
-              <div id="tab-1" class="tab-pane fade show span-0 active">
-              {jobPosts.map((jobPost)=>(
-                <div class="job-item p-4 mb-4" >
-                 
-
-                 
-                  <div class="row g-4">
-                 
-                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                    
-                      <img
-                        class="flex-shrink-0 img-fluid border rounded"
-                        src={jobPost.company.logo}
-                        alt=""
-                        style={{ width: "80px", height: "80px" }}
-                      />
-                      
-                      <div class="text-start ps-4" key={jobPost.id}>
-                        <h5 class="mb-3">{jobPost.title}</h5>
-                        <span class="text-truncate me-3">
-                          <i class="fa fa-map-marker-alt text-primary me-2"></i>
-                          {jobPost.location.name}
-                        </span>
-                        <span class="text-truncate me-3">
-                          <i class="far fa-clock text-primary me-2"></i>
-                          {jobPost.jobTypes.type}
-                        </span>
-                       
-                      </div>
-                     
-                    </div>
-                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                      <div class="d-flex mb-3">
-                        <Link class="btn btn-light btn-square me-3" href="">
-                          <i class="far fa-heart text-primary"></i>
-                        </Link>
-                        <Link class="viewJobs btn btn-outline-primary" to={`/jobPost/${jobPost.id}`}>
-                        <i class="fas fa-arrow-right"></i>
-                        </Link>
-                      </div>
-                      <small class="text-truncate">
-                        <i class="far fa-calendar-alt text-primary me-2"></i>
-                        Date Line: 01 Jan, 2045
-                      </small>
-                      
-                      
-                    </div>
-                    
-                   
-                    </div>
-                    
-                   
+      <div className="container py-4">
+        <div className="row g-4">
+          <div className="col-lg-8">
+            <div className="card border-0 shadow-sm rounded-4 p-4 mb-4">
+              <div className="d-flex align-items-center mb-4 flex-wrap gap-3">
+                <div
+                  className="rounded-3 overflow-hidden border p-1 bg-white shadow-sm"
+                  style={{ width: "90px", height: "90px" }}
+                >
+                  <img
+                    src={company.logo || "https://via.placeholder.com/90x90.png?text=Company"}
+                    alt={company.name}
+                    className="w-100 h-100 object-fit-cover"
+                  />
                 </div>
-             
-             ))}
-                <Link class="button btn-outline-primary " href="">
-                  More Jobs <i class="fas fa-arrow-right ml-2"></i>
-                </Link>
+                <div>
+                  <h3 className="fw-bold mb-1" style={{ color: "#0f172a" }}>
+                    {company.name}
+                  </h3>
+                  <div className="text-muted d-flex align-items-center gap-2">
+                    <i className="fa fa-map-marker-alt text-primary"></i>
+                    {company.address}
+                  </div>
+                </div>
               </div>
-              
+
+              <hr className="my-4 text-muted opacity-25" />
+
+              <div className="mb-4">
+                <h5 className="fw-bold text-dark mb-3">About the Company</h5>
+                <p className="text-secondary" style={{ lineHeight: 1.8 }}>
+                  {company.description}
+                </p>
+              </div>
+
+              {company.jobPost && (
+                <div className="mb-4">
+                  <h5 className="fw-bold text-dark mb-2">Hiring Overview</h5>
+                  <p className="text-secondary">{company.jobPost}</p>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-5">
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h4 className="fw-bold text-dark m-0">Open Positions at {company.name}</h4>
+                <span className="badge rounded-pill bg-light text-dark px-3 py-2 border">
+                  {jobPosts.length} {jobPosts.length === 1 ? "Job" : "Jobs"}
+                </span>
+              </div>
+
+              {jobPosts.length > 0 ? (
+                jobPosts.map((job) => <JobCard key={job.id} jobPost={job} />)
+              ) : (
+                <EmptyState
+                  icon="fa-briefcase"
+                  title="No Current Openings"
+                  message="This company does not currently have any active vacancies posted. Check back later!"
+                />
+              )}
+            </div>
+          </div>
+
+          <div className="col-lg-4">
+            <div className="card border-0 shadow-sm rounded-4 p-4 position-sticky" style={{ top: "100px" }}>
+              <h5 className="fw-bold mb-4 text-dark">Company Information</h5>
+
+              <div className="py-2 border-bottom">
+                <span className="text-muted small d-block">Company Name</span>
+                <span className="fw-semibold text-dark">{company.name}</span>
+              </div>
+
+              <div className="py-2 border-bottom">
+                <span className="text-muted small d-block">Headquarters</span>
+                <span className="fw-semibold text-dark">{company.address}</span>
+              </div>
+
+              <div className="py-2 border-bottom">
+                <span className="text-muted small d-block">Phone Number</span>
+                <span className="fw-semibold text-dark">{company.phone || "Not specified"}</span>
+              </div>
+
+              <div className="py-2 mb-3">
+                <span className="text-muted small d-block">Direct Email</span>
+                <span className="fw-semibold text-primary">{company.email || "careers@" + company.name.toLowerCase().replace(/\s+/g, "") + ".com"}</span>
+              </div>
+
+              <Link to="/jobPost" className="btn-outline-custom w-100 text-center">
+                <i className="fas fa-search me-1"></i> Browse More Companies
+              </Link>
             </div>
           </div>
         </div>
       </div>
+    </>
+  );
+};
 
-</>
-
-
-
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-                    </div>
-        
-                    <div class="container-card col-lg-4" key={company.id}>
-                        <div class="bg-light rounded p-5 mb-4 wow slideInUp" data-wow-delay="0.1s">
-                            <h4 class="mb-4">Company Summery</h4>
-                            <p><i class="fa fa-angle-right text-primary me-2"></i>Name: {company.name}</p>
-                            <p><i class="fa fa-angle-right text-primary me-2"></i>Phone:  {company.phone}</p>
-                            <p><i class="fa fa-angle-right text-primary me-2"></i>Address:  {company.address}</p>
-                            <p><i class="fa fa-angle-right text-primary me-2"></i>Email:  {company.email}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      
-
-    </section>
-  )
-}
-
-export default CompanyDetails
+export default CompanyDetails;

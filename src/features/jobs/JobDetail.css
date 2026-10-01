@@ -1,11 +1,41 @@
-.jobDetails{
-    font-size: 1rem;
+.job-detail-card {
+  background: #ffffff;
+  border-radius: var(--radius-md, 16px);
+  padding: 2.25rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
 }
-.job-details {
-    background: linear-gradient(rgba(43, 57, 64, .5), rgba(43, 57, 64, .5)), url('https://png.pngtree.com/background/20210710/original/pngtree-recruitment-background-banner-picture-image_1037995.jpg') center center no-repeat;
-    background-size: cover;
-    background-color: #EEF9FF;
-    height: 300px;
-    box-shadow: 2px red;
-   
+
+.job-detail-summary-card {
+  background: #f8fafc;
+  border-radius: var(--radius-md, 16px);
+  padding: 1.75rem;
+  border: 1px solid #e2e8f0;
+  position: sticky;
+  top: 100px;
+}
+
+.job-detail-summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed #e2e8f0;
+  font-size: 0.95rem;
+}
+
+.job-detail-summary-item:last-child {
+  border-bottom: none;
+}
+
+.skill-tag {
+  display: inline-block;
+  background: var(--primary-soft, #eef4ff);
+  color: var(--primary, #1c5cff);
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 }
