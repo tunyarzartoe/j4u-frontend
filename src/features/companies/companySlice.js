@@ -1,68 +1,49 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { companies, locations } from "../../dummyData";
-
-const initialState = {
-  companies: [],
-  status: "idle",
-  error: null,
-};
+import { storageService } from "../../services/storageService";
 
 export const getAllCompanies = createAsyncThunk(
   "companies/getAllCompanies",
   async () => {
-    return [...companies];
+    return storageService.getCompanies();
   }
 );
 
 export const addNewCompany = createAsyncThunk(
   "companies/addCompany",
   async (company) => {
-    const nextId = Math.max(0, ...companies.map((item) => item.id)) + 1;
+    const locations = storageService.getLocations();
     const location =
       locations.find((item) => item.id === company.location?.id) || locations[0];
     const newCompany = {
       ...company,
-      id: nextId,
       location,
       logo:
         company.logo ||
-        `https://via.placeholder.com/80x80.png?text=Company+${nextId}`,
+        "https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=120&q=80",
     };
-    companies.push(newCompany);
-    return newCompany;
+    return storageService.saveCompany(newCompany);
   }
 );
 
 export const updateCompany = createAsyncThunk(
   "companies/updateCompany",
   async (company) => {
-    const index = companies.findIndex((item) => item.id === company.id);
-    const location =
-      locations.find((item) => item.id === company.location?.id) || locations[0];
-    const updatedCompany = {
-      ...companies[index],
-      ...company,
-      location,
-    };
-    if (index === -1) {
-      companies.push(updatedCompany);
-    } else {
-      companies[index] = updatedCompany;
-    }
-    return updatedCompany;
+    return storageService.saveCompany(company);
   }
 );
 
 export const deleteCompany = createAsyncThunk(
   "companies/deleteCompany",
   async (company) => {
-    const index = companies.findIndex((item) => item.id === company.id);
-    if (index !== -1) {
-      companies.splice(index, 1);
-    }
     return company;
   }
 );
+
+const initialState = {
+  companies: storageService.getCompanies(),
+  status: "idle",
+  error: null,
+};
 
 const companySlice = createSlice({
   name: "companies",
@@ -85,22 +66,12 @@ const companySlice = createSlice({
         state.companies.push(action.payload);
       })
       .addCase(updateCompany.fulfilled, (state, action) => {
-        if (!action.payload?.id) {
-          return;
-        }
-        const filtered = state.companies.filter(
-          (company) => company.id !== action.payload.id
-        );
+        if (!action.payload?.id) return;
+        const filtered = state.companies.filter((c) => c.id !== action.payload.id);
         state.companies = [action.payload, ...filtered];
       })
       .addCase(deleteCompany.fulfilled, (state, action) => {
-        state.companies = state.companies.filter(
-          (company) => company.id !== action.payload.id
-        );
-      })
-      .addCase(deleteCompany.rejected, (state, action) => {
-        state.status = "fail";
-        state.error = action.error.message;
+        state.companies = state.companies.filter((c) => c.id !== action.payload.id);
       });
   },
 });
@@ -109,10 +80,6 @@ export const getCompanyStatus = (state) => state.companies.status;
 export const getCompanyError = (state) => state.companies.error;
 export const selectCompanyById = (state, companyId) =>
   state.companies.companies.find((company) => company.id === companyId);
-
-export const selectCompanyByLocationId = (state, locationId) =>
-  state.companies.companies.find((company) => company.location.id === locationId);
-
 export const selectAllCompanies = (state) => state.companies.companies;
 
 export default companySlice.reducer;

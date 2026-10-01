@@ -27,6 +27,9 @@ import EditJob from "./features/jobs/EditJob";
 import Application from "./features/application/Application";
 
 import "aos/dist/aos.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
 import Login from "./features/register/Login";
 import Signup from "./features/register/Signup";
 import Layout from "./components/layout/Layout";
@@ -37,67 +40,67 @@ import About from "./components/pages/About";
 import UserTable from "./features/user/UserTable";
 import ProfilePage from "./features/user/ProfilePage";
 
-
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        {/* Public Route */}
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
 
-        <Route index element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="jobPost" element={<Job />} />
-        <Route path="jobList" element={<JobList />} />
-        <Route path="jobPost/:jobPostId" element={<JobDetail />} />
-        <Route path="company" element={<Company />} />
-        <Route path="company/:companyId" element={<CompanyDetails />} />
-        <Route path="companyList" element={<CompanyList />} />
-        <Route path="searchCompany" element={<SearchCompany />} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* Public Routes */}
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="jobPost" element={<Job />} />
+          <Route path="jobList" element={<JobList />} />
+          <Route path="jobPost/:jobPostId" element={<JobDetail />} />
+          <Route path="company" element={<Company />} />
+          <Route path="company/:companyId" element={<CompanyDetails />} />
+          <Route path="companyList" element={<CompanyList />} />
+          <Route path="searchCompany" element={<SearchCompany />} />
+          <Route path="about" element={<About />} />
+          <Route path="userTable" element={<UserTable />} />
 
-        <Route path="about" element={<About />} />
-
-        <Route path="userTable" element={<UserTable />} />
-
-        {/* Protected Roue -> Role {"ROLE_USER"} */}
-        <Route element={<ProtectedRoute allowedRoles={["ROLE_USER"]} />}>
-          <Route path="profile" element={< ProfilePage/>} />
-          <Route path="app" element={<Application />} />
-          <Route path="unauthenticated" element={<UnAuthenticated />} />
+          {/* Protected Routes for Candidate */}
+          <Route element={<ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_ADMIN"]} />}>
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="app" element={<Application />} />
+            <Route path="unauthenticated" element={<UnAuthenticated />} />
+          </Route>
         </Route>
-      </Route>
 
-      {/* Protected Roue -> Role {"ROLE_ADMIN"} */}
-      <Route element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]} />}>
-        <Route path="/admin/" element={<AdminLayout />}>
-          <Route path="locationForm" element={<LocationForm />} />
-          <Route path="locationTable" element={<LocationTable />} />
-          <Route
-            path="editLocation/id/:locationId"
-            element={<EditLocation />}
-          />
-
-          <Route path="companyTable" element={<CompanyTable />} />
-          <Route path="companyForm" element={<CompanyForm />} />
-          <Route path="editCompany/id/:companyId" element={<EditCompany />} />
-
-          <Route path="categoryForm" element={<CategoryForm />} />
-          <Route path="categoryTable" element={<CategoryTable />} />
-          <Route
-            path="editCategory/id/:categoryId"
-            element={<EditCategory />}
-          />
-
-          <Route path="addJob" element={<AddJob />} />
-          <Route path="jobtable" element={<JobTable />} />
-          <Route path="editJobPost/id/:jobPostId" element={<EditJob />} />
-
-          <Route path="jobTypeForm" element={<JobTypeForm />} />
-          <Route path="jobTypeTable" element={<JobTypeTable />} />
-          <Route path="editJobType/id/:jobTypeId" element={<EditJobType />} />
+        {/* Protected Routes for Admin */}
+        <Route element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]} />}>
+          <Route path="/admin/" element={<AdminLayout />}>
+            <Route path="locationForm" element={<LocationForm />} />
+            <Route path="locationTable" element={<LocationTable />} />
+            <Route path="editLocation/id/:locationId" element={<EditLocation />} />
+            <Route path="companyTable" element={<CompanyTable />} />
+            <Route path="companyForm" element={<CompanyForm />} />
+            <Route path="editCompany/id/:companyId" element={<EditCompany />} />
+            <Route path="categoryForm" element={<CategoryForm />} />
+            <Route path="categoryTable" element={<CategoryTable />} />
+            <Route path="editCategory/id/:categoryId" element={<EditCategory />} />
+            <Route path="addJob" element={<AddJob />} />
+            <Route path="jobtable" element={<JobTable />} />
+            <Route path="editJobPost/id/:jobPostId" element={<EditJob />} />
+            <Route path="jobTypeForm" element={<JobTypeForm />} />
+            <Route path="jobTypeTable" element={<JobTypeTable />} />
+            <Route path="editJobType/id/:jobTypeId" element={<EditJobType />} />
+          </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 }
 

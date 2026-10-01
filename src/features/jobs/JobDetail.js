@@ -185,7 +185,7 @@ const JobDetail = () => {
               </div>
 
               <div className="mt-4">
-                <Link to="/app" className="btn-primary-custom w-100 py-3 text-center">
+                <Link to={`/app?jobId=${jobPost.id}`} className="btn-primary-custom w-100 py-3 text-center">
                   <i className="fas fa-paper-plane me-2"></i> Apply For This Job
                 </Link>
               </div>

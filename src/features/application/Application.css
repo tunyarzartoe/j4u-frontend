@@ -1,0 +1,73 @@
+.app-dashboard-header {
+  background: #ffffff;
+  border-radius: var(--radius-lg, 20px);
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  margin-bottom: 2rem;
+}
+
+.application-card {
+  background: #ffffff;
+  border-radius: var(--radius-md, 16px);
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  margin-bottom: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.application-card:hover {
+  border-color: var(--primary, #1c5cff);
+  box-shadow: 0 10px 25px rgba(28, 92, 255, 0.08);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.825rem;
+  font-weight: 600;
+}
+
+.status-badge--submitted {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.status-badge--review {
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.status-badge--shortlisted {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.status-badge--interview {
+  background: #f5f3ff;
+  color: #7c3aed;
+  border: 1px solid #ddd6fe;
+}
+
+.app-form-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg, 20px);
+  padding: 2.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.job-apply-banner {
+  background: var(--primary-soft, #eef4ff);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(28, 92, 255, 0.15);
+}
